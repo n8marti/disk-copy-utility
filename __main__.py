@@ -1,11 +1,11 @@
-#!/usr/bin/python3
+# This code was written in Python3
 
 import gi, re, signal, time
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GObject
 from multiprocessing import Process, Queue
 from os import kill, path, mkdir, rmdir
-import disk_backup_worker
+import worker
 
 
 class MainApp():
@@ -104,7 +104,7 @@ class MainApp():
     def run_worker(self):
         # Launch backup tasks in 2nd process. ("p0" is main process.)
         self.p1 = Process(
-            target=disk_backup_worker.worker,
+            target=worker.worker,
             args=(self.q, self.src, self.dest)
             )
         self.p1.start()
@@ -121,7 +121,7 @@ class MainApp():
     def run_proc_check(self):
         # Get progress data using 3rd process
         self.p2 = Process(
-            target=disk_backup_worker.file_count,
+            target=worker.file_count,
             args=(self.q,self.dest)
             )
         self.p2.start()
@@ -146,7 +146,7 @@ if __name__ == '__main__':
 
     # Use Gtk.Builder to import initial gui from Glade.
     my_path = path.dirname(__file__)
-    glade_file = path.join(my_path, "disk_backup_gui.glade")
+    glade_file = path.join(my_path, "gui.glade")
     builder = Gtk.Builder()
     builder.add_from_file(glade_file)
     builder.connect_signals(MainApp())

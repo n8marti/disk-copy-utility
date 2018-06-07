@@ -1,3 +1,5 @@
+# This Python3 module is referenced by the main module.
+
 import re
 from os import walk
 from subprocess import run, PIPE
