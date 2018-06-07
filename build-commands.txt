@@ -1,0 +1,22 @@
+WINDOWS EXE
+===========
+>s:
+>cd \disk-copy-utility
+
+# === Standard version ===
+>pyinstaller --clean -F -w -n "DiskCopy.exe" -i favicon.ico --uac-admin --win-private-assemblies __main__.py
+
+# === Debug version ======
+>pyinstaller --clean -F -w -n "DiskCopy(dbg).exe" -i favicon.ico --uac-admin -d --win-private-assemblies __main__.py
+
+
+
+LINUX EXECUTABLE
+================
+(env) $ cd dev/disk-copy-utility
+
+# === Standard version ===
+(env) $ pyinstaller --clean -F -n "DiskCopy" __main__.py
+
+# === Debug version ======
+(env) $ pyinstaller --clean -F -n "DiskCopy(dbg)" -d __main__.py
